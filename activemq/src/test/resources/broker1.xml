@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+ 
+  <broker xmlns="http://activemq.apache.org/schema/core" id="receiver" brokerName="broker1" persistent="false" useJmx="false">  
+    <!-- <networkConnectors>
+      <networkConnector uri="static:(tcp://localhost:61612)"/>
+    </networkConnectors> -->
+ 
+    <persistenceAdapter>
+      <memoryPersistenceAdapter/>
+    </persistenceAdapter>
+ 
+   <transportConnectors>
+      <transportConnector uri="tcp://localhost:61616"/>
+      <transportConnector name="mqtt" uri="mqtt://localhost:1883"/>
+    </transportConnectors>
+  </broker>
+  
+  <bean class="io.tmio.consulable.activemq.ActiveMQService" id="service1">
+    <constructor-arg><value>amq</value></constructor-arg>
+    <constructor-arg><value>1</value></constructor-arg>
+    <constructor-arg><value>61616</value></constructor-arg>
+    <property name="broker"><ref bean="receiver"/></property>
+  </bean>
+ 
+</beans>
