@@ -1,4 +1,4 @@
-= Consulable
+# Consulable
 
 This project is an experiment showing how you can leverage Consul to form active cluster.
 
